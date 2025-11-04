@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: api
+  namespace: workshop
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+  # même conteneur que le déploiement de base
+    spec:
+      containers:
+      - name: api
+        image: kennethreitz/httpbin:latest
+        ports:
+        - name: http
+          containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "300m"
+            memory: "256Mi"
+  strategy:
+    canary:
+      steps:
+      - setWeight: 10
+      - pause: { duration: 60 }
+      - setWeight: 30
+      - pause: { duration: 120 }
+      - setWeight: 60
+      - pause: { duration: 180 }
