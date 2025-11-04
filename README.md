@@ -23,6 +23,7 @@ k3d conseillé (expose les ports Ingress) :
 - k3d cluster create s6 -p "80:80@loadbalancer" -p "443:443@loadbalancer"
 
 3) Arborescence
+```
 s6-scalability/
 ├─ k8s/
 │  ├─ namespace.yaml
@@ -35,7 +36,7 @@ s6-scalability/
 │  └─ api-rollout.yaml
 └─ k6/
    └─ script.js
-
+```
 4) Déploiement (manifests de base)
 4.1 Créer le namespace
 - kubectl apply -f k8s/namespace.yaml
