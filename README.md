@@ -108,6 +108,11 @@ curl -vk https://workshop.local/api/get
 Résultats attendus :
 /front → affiche la page “Welcome to nginx / Hello from NGINX Demo”
 /api/get → renvoie une réponse JSON de httpbin (status 200)
+
+## Diagramme
+
+<img width="837" height="131" alt="diagramme_L7_ingress_TLS" src="https://github.com/user-attachments/assets/231dda56-4551-4360-9770-e73bd7dfccf7" />
+
 ### 🔁 Rollback d’une release
 ## 1️⃣ Casser volontairement le front :
 kubectl -n workshop set image deployment/front front=nginx:broken
