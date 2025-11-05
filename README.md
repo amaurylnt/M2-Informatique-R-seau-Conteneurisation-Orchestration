@@ -25,17 +25,6 @@ Ce TP a pour objectif de :
 | Ingress Controller | NGINX |
 | Namespace | `workshop` |
 
-### 🔁 Diagramme L7 (Mermaid)
-mermaid
-flowchart LR
-  C[Client] -->|HTTPS| I[Ingress NGINX]
-  I -.TLS termination.- I
-
-  I -->|/front| S1[Service front]
-  I -->|/api| S2[Service api]
-
-  S1 --> P1[(Pods front)]
-  S2 --> P2[(Pods api)]
 📁 Arborescence du projet
 k8s/
 ├─ 00-namespace.yaml
@@ -48,21 +37,12 @@ k8s/
 ├─ 40-clusterissuer.yaml
 ├─ 50-ingress.yaml
 ├─ manifest.yaml      
-scripts/
-├─ bootstrap.sh
-├─ 01_create_cluster.sh
-├─ 02_install_ingress.sh
-├─ 03_install_cert_manager.sh
-├─ 04_apply_manifests.sh
-└─ 90_test_and_rollback.sh
 README.md
 🧱 Prérequis
+
 Docker Desktop ou Docker Engine
-
 k3d + kubectl + Helm
-
 Ports 80 et 443 libres
-
 Ajout dans /etc/hosts (ou C:\Windows\System32\drivers\etc\hosts) :
 127.0.0.1  workshop.local
 
@@ -73,14 +53,10 @@ Ajout dans /etc/hosts (ou C:\Windows\System32\drivers\etc\hosts) :
 chmod +x scripts/*.sh
 ./scripts/bootstrap.sh
 Ce script exécute automatiquement :
-
-la création du cluster k3d
-
-l’installation d’Ingress NGINX
-
-l’installation de cert-manager
-
-le déploiement des manifests du TP
+- la création du cluster k3d
+- l’installation d’Ingress NGINX
+- l’installation de cert-manager
+- le déploiement des manifests du TP
 
 🧩 Vérification du déploiement
 kubectl -n workshop get deploy,po,svc,ingress
@@ -99,11 +75,11 @@ ingress/web    nginx   workshop.local             80,443  2m
 
 🔍 Tests d’accès
 🌐 HTTP
-curl -v  http://workshop.local/front
+- curl -v  http://workshop.local/front
 
 🔒 HTTPS (certificat self-signed)
-curl -vk https://workshop.local/front
-curl -vk https://workshop.local/api/get
+- curl -vk https://workshop.local/front
+- curl -vk https://workshop.local/api/get
 
 Résultats attendus :
 /front → affiche la page “Welcome to nginx / Hello from NGINX Demo”
@@ -165,9 +141,3 @@ Rollback	- kubectl rollout undo	- Retour rapide à la dernière version stable
 - Créer un **chart Helm** pour packager cette application et simplifier les déploiements futurs.
 
 💡 En résumé : ce TP m’a permis de consolider mes compétences Kubernetes, de comprendre le rôle de l’Ingress et du TLS dans une architecture L7, et d’améliorer ma capacité à diagnostiquer des problèmes réseau et applicatifs en autonomie.
-
-
-👤 Auteur
-
-Amaury Lyonnet
-M2 Infrastructure Cloud & Sécurité — Ynov Campus Lyon
