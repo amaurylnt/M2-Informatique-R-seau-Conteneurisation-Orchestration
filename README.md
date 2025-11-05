@@ -115,14 +115,16 @@ kubectl -n workshop rollout status deploy/front
 curl -vk https://workshop.local/front
 ```
 🧠 Choix techniques
-Élément	- Choix	- Justification
-Ingress Controller	- NGINX	Référence Kubernetes - simple et stable
-TLS	- cert-manager + ClusterIssuer selfsigned	- Permet un HTTPS local sans dépendance externe
-Front	- nginxdemos/hello:plain-text	- Image légère, facile à tester
-API	- kennethreitz/httpbin	- Fournit des endpoints HTTP de test
-ConfigMap	- BANNER_TEXT	- Stockage de configuration non sensible
-Secret	- DB_USER, DB_PASS	- Variables sensibles isolées
-Rollback	- kubectl rollout undo	- Retour rapide à la dernière version stable
+
+| Élément | Choix | Justification |
+|----------:|:---------:|-----------|
+|   Ingress Controller     |  NGINX	Référence Kubernetes   | simple et stable     |
+|   TLS     |  cert-manager + ClusterIssuer selfsigned        | Permet un HTTPS local sans dépendance externe     |
+|   Front     |  nginxdemos/hello:plain-text   | Image légère, facile à tester     |
+|   API     |  kennethreitz/httpbin        | Fournit des endpoints HTTP de test     |
+|   ConfigMap     |  BANNER_TEXT   | Stockage de configuration non sensible     |
+|   Secret     |  DB_USER, DB_PASS        | Variables sensibles isolées     |
+|   Rollback     |  kubectl rollout undo   | Retour rapide à la dernière version stable     |
 
 ## 🔄 Retour d’expérience (REX)
 
