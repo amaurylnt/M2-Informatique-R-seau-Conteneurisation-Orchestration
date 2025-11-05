@@ -72,21 +72,22 @@ cd runbook
 chmod +x backup-linux-macos.sh restore-linux-macos.sh
 
 # Backup logique (exporte toutes les DB/roles)
+```
 ./backup-linux-macos.sh
-# -> backup-YYYY-MM-DD.sql
-
+```
 # Restore
+```
 ./restore-linux-macos.sh backup-YYYY-MM-DD.sql
-
+```
 Windows (PowerShell)
+```
 cd runbook
-# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass  # si besoin
-
 .\backup-windows.ps1
-# -> backup-YYYY-MM-DD.sql
-
-.\restore-windows.ps1 -File .\backup-YYYY-MM-DD.sql
-
+```
+```
+.\restore-windows.ps1 -File
+.\backup-YYYY-MM-DD.sql
+```
 
 Ce que font les scripts :
 pg_dumpall -U postgres (dans le Pod) → redirigé dans un fichier local backup-YYYY-MM-DD.sql
@@ -105,8 +106,9 @@ Si tu as changé volumeClaimTemplates, tu dois supprimer et recréer le Stateful
 kubectl exec → container not found
 
 Tu as lancé la commande avant que le Pod soit Ready :
+```
 kubectl -n workshop wait --for=condition=ready pod -l app=postgres --timeout=180s
-
+```
 Image Pull / CrashLoop
 
 Logs et describe :
