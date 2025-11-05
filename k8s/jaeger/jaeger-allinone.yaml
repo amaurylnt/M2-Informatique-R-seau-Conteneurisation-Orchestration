@@ -5,3 +5,20 @@ metadata:
   namespace: observability
 spec:
   strategy: allinone
+  allInOne:
+    options:
+      log-level: debug
+  storage:
+    type: memory
+    options:
+      memory:
+        max-traces: 50000
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+  ingress:
+    enabled: false
