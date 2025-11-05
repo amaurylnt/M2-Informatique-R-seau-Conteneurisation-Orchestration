@@ -16,7 +16,7 @@ Ce TP a pour objectif de :
 ---
 
 ## ⚙️ Architecture cible
-
+```
 | Élément | Description |
 |----------|-------------|
 | `/front` | Service web statique (image NGINX) |
@@ -24,8 +24,9 @@ Ce TP a pour objectif de :
 | TLS | Certificat auto-signé géré par cert-manager |
 | Ingress Controller | NGINX |
 | Namespace | `workshop` |
-
+```
 📁 Arborescence du projet
+```
 k8s/
 ├─ 00-namespace.yaml
 ├─ 10-configmap.yaml
@@ -38,6 +39,7 @@ k8s/
 ├─ 50-ingress.yaml
 ├─ manifest.yaml      
 README.md
+```
 🧱 Prérequis
 
 Docker Desktop ou Docker Engine
@@ -49,7 +51,7 @@ Ajout dans /etc/hosts (ou C:\Windows\System32\drivers\etc\hosts) :
 🚀 Déploiement complet
 
 ## 1️⃣ Lancer le cluster et l’environnement
-
+```
 chmod +x scripts/*.sh
 ./scripts/bootstrap.sh
 Ce script exécute automatiquement :
@@ -57,9 +59,11 @@ Ce script exécute automatiquement :
 - l’installation d’Ingress NGINX
 - l’installation de cert-manager
 - le déploiement des manifests du TP
-
+```
 🧩 Vérification du déploiement
+```
 kubectl -n workshop get deploy,po,svc,ingress
+```
 
 Résultat attendu :
 NAME           READY   UP-TO-DATE   AVAILABLE   AGE
@@ -75,12 +79,14 @@ ingress/web    nginx   workshop.local             80,443  2m
 
 🔍 Tests d’accès
 🌐 HTTP
+```
 - curl -v  http://workshop.local/front
-
+```
 🔒 HTTPS (certificat self-signed)
+```
 - curl -vk https://workshop.local/front
 - curl -vk https://workshop.local/api/get
-
+```
 Résultats attendus :
 /front → affiche la page “Welcome to nginx / Hello from NGINX Demo”
 /api/get → renvoie une réponse JSON de httpbin (status 200)
@@ -91,19 +97,23 @@ Résultats attendus :
 
 ### 🔁 Rollback d’une release
 ## 1️⃣ Casser volontairement le front :
+```
 kubectl -n workshop set image deployment/front front=nginx:broken
 kubectl -n workshop rollout status deploy/front
-
+```
 ## 2️⃣ Observer l’échec :
+```
 kubectl -n workshop get pods -l app=front
-
+```
 ## 3️⃣ Revenir à la version stable :
+```
 kubectl -n workshop rollout undo deployment/front
 kubectl -n workshop rollout status deploy/front
-
+```
 ## 4️⃣ Vérifier que le front est de nouveau accessible :
+```
 curl -vk https://workshop.local/front
-
+```
 🧠 Choix techniques
 Élément	- Choix	- Justification
 Ingress Controller	- NGINX	Référence Kubernetes - simple et stable
